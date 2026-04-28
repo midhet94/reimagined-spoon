@@ -1,0 +1,38 @@
+default_platform(:ios)
+
+platform :ios do
+
+  desc "Run tests"
+  lane :test do
+    run_tests(
+      scheme: "MyPOCApp",
+      destination: "platform=iOS Simulator,name=iPhone 15,OS=latest"
+    )
+  end
+
+  desc "Build and upload to Firebase App Distribution"
+  lane :beta do
+    # Tell Fastlane everything explicitly so it never needs to ask
+    build_app(
+      scheme: "MyPOCApp",
+      export_method: "development",
+      code_signing_identity: "Apple Development",
+      skip_codesigning: true,        # skip signing in CI
+      skip_package_ipa: false,
+      silent: true,
+      clean: true,
+      export_options: {
+        compileBitcode: false,
+        signingStyle: "automatic"
+      }
+    )
+
+    firebase_app_distribution(
+      app: ENV["FIREBASE_APP_ID"],
+      firebase_cli_token: ENV["FIREBASE_TOKEN"],
+      release_notes: "Build #{ENV['BUILD_NUMBER']}",
+      testers: "your@email.com"
+    )
+  end
+
+end
