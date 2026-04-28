@@ -16,7 +16,7 @@ platform :ios do
     build_app(
       scheme: "MyPOCApp",
       export_method: "development",
-      code_signing_identity: "Apple Development",
+      codesigning_identity: "Apple Development",
       skip_codesigning: true,        # skip signing in CI
       skip_package_ipa: false,
       silent: true,
