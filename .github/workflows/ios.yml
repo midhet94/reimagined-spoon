@@ -13,6 +13,8 @@ jobs:
     runs-on: macos-latest
     env:
       CI: true
+      FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: 120
+      FASTLANE_XCODEBUILD_SETTINGS_RETRIES: 6
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -27,7 +29,9 @@ jobs:
     name: Deploy to Firebase
     runs-on: macos-latest
     env:
-      CI: true 
+      CI: true
+      FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: 120
+      FASTLANE_XCODEBUILD_SETTINGS_RETRIES: 6
     needs: test
     if: github.ref == 'refs/heads/main'
     steps:

@@ -6,7 +6,7 @@ platform :ios do
   lane :test do
     run_tests(
       scheme: "MyPOCApp",
-      destination: "platform=iOS Simulator,name=iPhone 15,OS=latest"
+      destination: "platform=iOS Simulator,name=iPhone 17,OS=latest"
     )
   end
 
